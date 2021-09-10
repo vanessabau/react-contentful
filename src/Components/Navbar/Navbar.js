@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
   render() {
     return (
       <div>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
           <div className="container">
             <a class="navbar-brand" href="#">
               Top navbar
@@ -23,29 +24,29 @@ class Navbar extends Component {
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <Link class="nav-link" to="/">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <Link class="nav-link" to="/About">
                     About
-                  </a>
+                  </Link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <Link class="nav-link" to="/Services">
                     Services
-                  </a>
+                  </Link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <Link class="nav-link" to="/Blog">
                     Blog
-                  </a>
+                  </Link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <Link class="nav-link" to="/Contact">
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
