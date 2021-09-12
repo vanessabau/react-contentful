@@ -212,3 +212,7 @@ input[type="checkbox"]:checked ~ .grid {
 .img-blog {
   border-radius: 5px;
 }
+.contact-form {
+  text-align: center;
+  padding-bottom: 25px;
+}

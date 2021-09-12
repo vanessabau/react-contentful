@@ -1,22 +1,50 @@
-import React from "react";
+import React, { Component } from "react";
+import client from "./Client";
+import BlackLoader from "../Images/black-loader.gif";
+import marked from "marked";
+class About extends Component {
+  constructor() {
+    super();
+    this.state = { aboutpage: [] };
+  }
 
-const About = () => (
-  <div>
-    <div className="container">
-      <h2 className="text-center">About Us</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in
-        vestibulum ligula. Vestibulum ante ipsum primis in faucibus orci luctus
-        et ultrices posuere cubilia curae; Aenean sollicitudin quam ut congue
-        feugiat. Pellentesque placerat dolor eget massa rutrum consectetur.
-        Vivamus viverra justo ac suscipit posuere. Quisque velit lorem,
-        facilisis quis neque nec, interdum sodales quam. Curabitur vitae
-        placerat diam. Praesent malesuada euismod nisi. Maecenas convallis
-        turpis nec magna molestie dignissim. Nullam rhoncus nibh non orci
-        egestas vulputate.
-      </p>
-    </div>
-  </div>
-);
+  componentDidMount() {
+    client
+      .getEntries({
+        content_type: "about",
+      })
+      .then((entries) => {
+        console.log(entries.items);
+        this.setState({ aboutpage: entries.items[0] }); //200
+      });
+  }
+
+  getParsedMarkdown(aboutDescription) {
+    return {
+      __html: marked(aboutDescription, { santitize: true }),
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="container">
+          <h2 className="text-center">About Us</h2>
+          {this.state.aboutpage.length === 0 ? (
+            <div align="center" className="pt-5">
+              <img src={BlackLoader} alt="loading gif" />
+            </div>
+          ) : (
+            <div
+              dangerouslySetInnerHTML={this.getParsedMarkdown(
+                this.state.aboutpage.fields.aboutDescription
+              )}
+            />
+          )}
+        </div>
+      </div>
+    );
+  }
+}
 
 export default About;
