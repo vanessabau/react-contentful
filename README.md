@@ -1,4 +1,4 @@
-# Simple WebSite Using Create React App and Conentful
+# Simple WebSite Using Create React App and Contentful
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
