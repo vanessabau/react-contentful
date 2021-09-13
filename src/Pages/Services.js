@@ -38,9 +38,9 @@ class Services extends Component {
               </div>
             ) : (
               <div className="row">
-                {this.state.servicepage.map((item) => {
+                {this.state.servicepage.map((item, index) => {
                   return (
-                    <div className="col-md-4">
+                    <div className="col-md-4" key={item}>
                       <div className="media service-wrap">
                         <div>
                           <img

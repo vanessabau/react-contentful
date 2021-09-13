@@ -1,59 +1,75 @@
-import React from "react";
-import blog1 from "../Images/blog/blog1.jpg";
-import blog2 from "../Images/blog/blog2.jpg";
+import React, { Component } from "react";
+import client from "./Client";
+import { Link } from "react-router-dom";
+import BlackLoader from "../Images/black-loader.gif";
 
-const Blog = () => (
-  <div>
-    <section id="blog">
-      <div className="container">
-        <div className="text-center">
-          <h2>Blogs</h2>
-          <p className="lead">
-            Morbi pharetra tincidunt nulla, quis ullamcorper libero tincidunt
-            et.
-          </p>
-        </div>
-        <div className="row">
-          <div className="col-md-6 blog-content">
-            <img className="img-blog img-fluid" src={blog1} alt="meeting" />
-            <h3>
-              <a href="_#">
+class Blog extends Component {
+  constructor() {
+    super();
+    this.state = { blogpage: [] };
+  }
+
+  componentDidMount() {
+    client
+      .getEntries({
+        content_type: "blogs",
+        order: "sys.createdAt",
+      })
+      .then((entries) => {
+        console.log(entries.items);
+        this.setState({ blogpage: entries.items });
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <section id="blog">
+          <div className="container">
+            <div className="text-center">
+              <h2>Blogs</h2>
+              <p className="lead">
                 Morbi pharetra tincidunt nulla, quis ullamcorper libero
                 tincidunt et.
-              </a>
-            </h3>
-            <p>
-              Aenean nec dolor vitae nisi sagittis pretium id sed quam. Duis id
-              finibus orci. Nulla vel condimentum ipsum, vitae pharetra velit.
-              Maecenas scelerisque est ac urna convallis finibus. Pellentesque
-              pulvinar diam sed orci convallis porttitor. Nullam orci nulla,
-              semper sit amet venenatis at, feugiat quis tortor. Donec vulputate
-              elit fermentum lectus efficitur, id auctor tortor luctus.
-            </p>
-            <button className="btn btn-primary">Read More</button>
+              </p>
+            </div>
+            {this.state.blogpage.length === 0 ? (
+              <div align="center" className="pt-5">
+                <img src={BlackLoader} alt="loading gif" />
+              </div>
+            ) : (
+              <div className="row">
+                {this.state.blogpage.map((item, index) => {
+                  return (
+                    <div key={index} className="col-md-6 blog-content">
+                      <img
+                        className="img-blog img-fluid"
+                        src={item.fields.blogThumbnail.fields.file.url}
+                        alt="meeting"
+                      />
+                      <h3>
+                        <Link to={`../Blogs/${item.fields.slug}`}>
+                          {item.fields.blogTitle}
+                        </Link>
+                      </h3>
+                      <p>{item.fields.blogDescription}</p>
+                      <button className="btn btn-primary">
+                        <Link to={`../Blogs/${item.fields.slug}`}>
+                          <span style={{ color: "white" }}>Read more...</span>
+                        </Link>
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* End of Row */}
           </div>
-          <div className="col-md-6 blog-content">
-            <img className="img-blog img-fluid" src={blog2} alt="meeting" />
-            <h3>
-              <a href="_#">
-                Morbi pharetra tincidunt nulla, quis ullamcorper libero
-                tincidunt et.
-              </a>
-            </h3>
-            <p>
-              Aenean nec dolor vitae nisi sagittis pretium id sed quam. Duis id
-              finibus orci. Nulla vel condimentum ipsum, vitae pharetra velit.
-              Maecenas scelerisque est ac urna convallis finibus. Pellentesque
-              pulvinar diam sed orci convallis porttitor. Nullam orci nulla,
-              semper sit amet venenatis at, feugiat quis tortor. Donec vulputate
-              elit fermentum lectus efficitur, id auctor tortor luctus.
-            </p>
-            <button className="btn btn-primary">Read More</button>
-          </div>
-        </div>
+        </section>
       </div>
-    </section>
-  </div>
-);
+    );
+  }
+}
 
 export default Blog;

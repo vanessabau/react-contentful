@@ -7,6 +7,7 @@ import About from "./Pages/About";
 import Services from "./Pages/Services";
 import Blog from "./Pages/Blog";
 import Contact from "./Pages/Contact";
+import SingleArticle from "./Pages/SingleArticle";
 
 class App extends Component {
   constructor() {
@@ -21,8 +22,9 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/About" component={About} />
           <Route exact path="/Services" component={Services} />
-          <Route exact path="/Blog" component={Blog} />
+          <Route exact path="/Blogs" component={Blog} />
           <Route exact path="/Contact" component={Contact} />
+          <Route exact path="/Blogs/:slug" component={SingleArticle} />
           <Footer />
         </div>
       </Router>
