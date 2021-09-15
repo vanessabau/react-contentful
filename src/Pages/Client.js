@@ -1,8 +1,8 @@
 import { createClient } from "contentful";
 
 const client = createClient({
-  space: "p5gccatb7fm5",
-  accessToken: "AekNKjkSSSlDZTZr7LdqNc3joRoI4RYEwdHHq7iDArU",
+  space: "<your space>",
+  accessToken: "<your access token>",
 });
 
 export default client;
